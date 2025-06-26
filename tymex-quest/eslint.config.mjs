@@ -40,6 +40,18 @@ const eslintConfig = [
       '@tanstack/query/exhaustive-deps': 'error',
     },
   },
+  {
+    ignores: [
+      'node_modules',
+      '.next',
+      '.turbo',
+      '.env',
+      '.env.local',
+      '.env.development.local',
+      '.env.test.local',
+      '.env.production.local',
+    ],
+  },
 ]
 
 export default eslintConfig

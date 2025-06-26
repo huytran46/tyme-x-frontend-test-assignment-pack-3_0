@@ -1,5 +1,5 @@
+import { CategoryChip } from '@/app/components/category-chips/client'
 import { fetchAvailableCategories } from '@/app/data'
-import { Button } from '@/components/ui/button'
 import { sleep } from '@/lib/utils'
 
 const CategoryChipsWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -9,11 +9,7 @@ const CategoryChipsWrapper = ({ children }: { children: React.ReactNode }) => (
 const CategoryChips = async () => {
   const { categories } = await fetchAvailableCategories()
   await sleep(2_000)
-  return categories.map(cat => (
-    <Button key={cat} variant="outline" size="sm">
-      {cat}
-    </Button>
-  ))
+  return categories.map(cat => <CategoryChip key={cat} cat={cat} />)
 }
 
 const CategoryChipsSkeleton = () =>

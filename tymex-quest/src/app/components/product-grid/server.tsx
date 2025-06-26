@@ -1,11 +1,3 @@
-import type { PropsWithChildren } from 'react'
-import type { SearchParams } from 'nuqs/server'
-
-import { fetchProducts, loadProductSearchParams, productQueryKey } from '@/app/data'
-import { sleep } from '@/lib/utils'
-
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
-
 const ProductCardSkeleton = () => (
   <div className="bg-white rounded shadow p-3 flex flex-col">
     <div className="w-full aspect-square bg-gray-200 rounded mb-2 flex items-center justify-center">
@@ -60,24 +52,22 @@ const ProductGridWrapper = ({ children }: { children: React.ReactNode }) => (
 
 const ProductGridSkeleton = () => Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />)
 
-const ProductGridDataProvider = async ({
-  initialSearchParams,
-  children,
-}: PropsWithChildren<{ initialSearchParams: Promise<SearchParams> }>) => {
-  const queryParams = await loadProductSearchParams(initialSearchParams)
-  const queryClient = new QueryClient()
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: productQueryKey.base(queryParams),
-    queryFn: ({ signal }) => fetchProducts(queryParams, signal),
-    initialPageParam: queryParams._page,
-  })
-  await sleep(2_000)
-  return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>
-}
+const ProductGridEmptyState = () => (
+  <div className="min-h-[400px] flex justify-center pt-20 col-span-1 sm:col-span-2 lg:col-span-4">
+    <div className="flex flex-col items-center gap-3">
+      <svg width="40" height="40" fill="none" viewBox="0 0 24 24" className="mb-2 text-gray-300">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+        <path d="M8 15h8M9 9h.01M15 9h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+      <span className="text-gray-500 text-lg font-medium">No products found.</span>
+      <span className="text-gray-400 text-sm text-center">Try adjusting your filters or search.</span>
+    </div>
+  </div>
+)
 
 export {
   ProductCard,
-  ProductGridDataProvider,
+  ProductGridEmptyState,
   ProductGridSkeleton,
   ProductGridWrapper,
   ProductImage,

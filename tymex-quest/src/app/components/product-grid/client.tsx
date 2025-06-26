@@ -2,15 +2,30 @@
 
 import { useQueryStates } from 'nuqs'
 
-import { ProductCard, ProductImage, ProductInfo, ProductLikeButton } from '@/app/components/product-grid/server'
+import {
+  ProductCard,
+  ProductGridEmptyState,
+  ProductGridSkeleton,
+  ProductImage,
+  ProductInfo,
+  ProductLikeButton,
+} from '@/app/components/product-grid/server'
 import { productSearchParams } from '@/app/data'
 import { useInfiniteProducts } from '@/app/hooks/use-infinite-products'
 
 const ProductGrid = () => {
   const [searchParams] = useQueryStates(productSearchParams)
-  console.log('searchParams', searchParams)
-  const { data } = useInfiniteProducts(searchParams)
+  const { data, isLoading } = useInfiniteProducts(searchParams)
   const products = data?.pages.flatMap(page => page.data) ?? []
+
+  if (isLoading) {
+    return <ProductGridSkeleton />
+  }
+
+  if (!products.length) {
+    return <ProductGridEmptyState />
+  }
+
   return products.map(product => (
     <ProductCard key={product.id}>
       <ProductImage />

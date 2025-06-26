@@ -1,15 +1,22 @@
 import { cache } from 'react'
 import type { inferParserType } from 'nuqs/server'
-import { createLoader, parseAsFloat, parseAsInteger, parseAsString, parseAsStringLiteral } from 'nuqs/server'
+import {
+  createLoader,
+  parseAsArrayOf,
+  parseAsFloat,
+  parseAsInteger,
+  parseAsString,
+  parseAsStringLiteral,
+} from 'nuqs/server'
 
 const productSearchParams = {
-  q: parseAsString,
+  q: parseAsString.withDefault(''),
   price_gte: parseAsFloat,
   price_lte: parseAsFloat,
   tier: parseAsString,
   theme: parseAsString,
   price: parseAsString,
-  category: parseAsString,
+  category: parseAsArrayOf(parseAsString),
   _sort: parseAsString,
   _order: parseAsStringLiteral(['asc', 'desc'] as const),
   _page: parseAsInteger.withDefault(1),
@@ -45,10 +52,8 @@ const buildQueryString = (params: ProductQueryParams) => {
 
 const productFetcher = async (params: ProductQueryParams, signal?: AbortSignal) => {
   const queryString = buildQueryString(params)
+  console.log('queryString', queryString)
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/products?${queryString}`, {
-    next: {
-      tags: ['products', JSON.stringify(params)],
-    },
     signal,
   })
   const data = (await res.json()) as Product[]
