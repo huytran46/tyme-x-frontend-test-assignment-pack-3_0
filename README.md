@@ -1,2 +1,1 @@
-# FrontendTestAssignmentPack3_0
-TymeX
+# TymeX Quest
