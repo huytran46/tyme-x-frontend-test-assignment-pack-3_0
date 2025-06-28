@@ -1,10 +1,14 @@
 import { Fragment, Suspense } from 'react'
 
-import { PriceSelect, SearchInput, ThemeSelect, TierSelect } from '@/app/components/product-filter-panel/client'
+import {
+  PriceRangeSlider,
+  PriceSelect,
+  ResetFilterButton,
+  SearchInput,
+  ThemeSelect,
+  TierSelect,
+} from '@/app/components/product-filter-panel/client'
 import { fetchAvailableCategories } from '@/app/data'
-import { Button } from '@/components/ui/button'
-import { Slider } from '@/components/ui/slider'
-import { sleep } from '@/lib/utils'
 
 const MetaRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div className="mb-4">
@@ -14,8 +18,7 @@ const MetaRow = ({ label, children }: { label: string; children: React.ReactNode
 )
 
 const ProductFilterPanel = async () => {
-  const { tiers, themes } = await fetchAvailableCategories()
-  await sleep(2_000)
+  const { tiers, themes, maxPrice } = await fetchAvailableCategories()
   return (
     <Fragment>
       {/* SEARCH */}
@@ -24,7 +27,9 @@ const ProductFilterPanel = async () => {
       </Suspense>
 
       <MetaRow label="Price Range">
-        <Slider className="w-full" />
+        <Suspense>
+          <PriceRangeSlider max={maxPrice} />
+        </Suspense>
       </MetaRow>
 
       <MetaRow label="Tier">
@@ -45,9 +50,7 @@ const ProductFilterPanel = async () => {
         </Suspense>
       </MetaRow>
 
-      <Button variant="outline" className="w-full">
-        Reset Filter
-      </Button>
+      <ResetFilterButton />
     </Fragment>
   )
 }
