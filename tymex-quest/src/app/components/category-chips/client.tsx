@@ -12,10 +12,13 @@ const CategoryChip = ({ cat }: { cat: string }) => {
   const handleClick = (selectedCategory: string) => {
     setProductParams(prev => {
       if (!prev.category) return { ...prev, category: [selectedCategory] }
+      
       const nextCategories = prev.category.includes(selectedCategory)
         ? prev.category.filter(c => c !== selectedCategory)
         : prev.category.concat(selectedCategory)
+
       if (!nextCategories.length) return { ...prev, category: null }
+      
       return { ...prev, category: nextCategories }
     })
   }
