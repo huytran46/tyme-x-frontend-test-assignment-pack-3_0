@@ -50,7 +50,9 @@ const ProductFilterPanel = async () => {
         </Suspense>
       </MetaRow>
 
-      <ResetFilterButton />
+      <Suspense>
+        <ResetFilterButton />
+      </Suspense>
     </Fragment>
   )
 }
