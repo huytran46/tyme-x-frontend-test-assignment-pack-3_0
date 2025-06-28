@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tymex Quest Submission
 
-## Getting Started
+## Features
+- Responsive layout, work on mobiles.
+- Category-based product filtering.
+- Pagination support.
+- Unit test coverage > 40%.
+- ESLint and Prettier for code quality checks.
 
-First, run the development server:
+## Prerequisites
 
+- **Node.js** (version 18.0 or higher)
+- **pnpm** (recommended package manager)
+
+If you don't have pnpm installed, you can install it globally:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install -g pnpm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Setup tymex-backend**
+   ```bash
+   cd tymex-backend
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Setup tymex-quest**
+   ```bash
+   cd tymex-quest
+   pnpm install
+   ```
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                    # Next.js app directory
+│   ├── components/         # Page-specific components
+│   │   ├── category-chips/ # Category filtering components
+│   │   ├── product-filter-panel/ # Product filtering panel
+│   │   ├── product-grid/   # Product display grid
+│   │   └── product-grid-pagination/ # Pagination components
+│   ├── data/              # Data fetching and API logic
+│   ├── hooks/             # Custom React hooks
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout component
+│   ├── page.tsx           # Home page component
+│   └── providers.tsx      # App providers (React Query, etc.)
+├── components/            # Reusable UI components
+│   └── ui/               # Base UI components (shadcn/ui)
+└── lib/                  # Utility functions and configurations
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Framework:** Next.js 15 with App Router
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI Components:** Radix UI + shadcn/ui
+- **State Management:** TanStack Query (React Query)
+- **Unit Testing:** Jest + React Testing Library
+- **Package Manager:** pnpm
+- **Code Quality:** ESLint + Prettier
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Running the Application
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Start tymex-backend
+   ```bash
+   cd tymex-backend
+   npm run start
+   ```
+
+### Development Mode
+
+Start the development server with hot reload:
+```bash
+cd tymex-quest
+pnpm dev
+```
+
+The application will be available at [http://localhost:3333](http://localhost:3333)
+
+> **Note:** This project runs on port 3333 instead of the default 3000.
+
+### Production Build
+
+To build the application for production:
+```bash
+pnpm build
+```
+
+To start the production server:
+```bash
+pnpm start
+```
+
+## Testing
+
+This project uses **Jest** with **React Testing Library** for unit testing.
+
+### Available Test Commands
+
+- **Run all tests once:**
+  ```bash
+  pnpm test
+  ```
+
+- **Generate test coverage report:**
+  ```bash
+  pnpm test:coverage
+  ```
