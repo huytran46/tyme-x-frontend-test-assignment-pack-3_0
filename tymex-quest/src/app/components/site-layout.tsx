@@ -3,9 +3,9 @@ import * as React from 'react'
 import { Button } from '@/components/ui/button'
 
 const Header = () => (
-  <header className="flex flex-col md:flex-row items-center justify-beween p-8 gap-8 mx-auto max-w-7xl w-full">
+  <header className="flex flex-col md:flex-row items-center justify-between p-8 gap-8 mx-auto max-w-7xl w-full">
     <div>
-      <h1 className="text-5xl font-bold leading-tight">
+      <h1 className="text-5xl font-bold leading-tight text-center md:text-left">
         NEW
         <br />
         ARRIVAL
@@ -16,6 +16,7 @@ const Header = () => (
         ))}
       </div>
     </div>
+
     <div className="flex flex-col items-center">
       <div className="w-64 h-64 bg-gray-200 rounded mb-4 flex items-center justify-center">
         <span className="text-lg text-gray-400">Featured Image</span>
@@ -48,18 +49,9 @@ const Footer = () => (
       <div>
         <div className="font-semibold mb-2">CONTACT US</div>
         <ul className="space-y-1 text-sm">
-          <li>
-            <input type="checkbox" className="mr-2" />
-            Email
-          </li>
-          <li>
-            <input type="checkbox" className="mr-2" defaultChecked />
-            Chat
-          </li>
-          <li>
-            <input type="checkbox" className="mr-2" />
-            Phone
-          </li>
+          <li>Email</li>
+          <li>Chat</li>
+          <li>Phone</li>
         </ul>
       </div>
       <div className="flex-1 max-w-md">
