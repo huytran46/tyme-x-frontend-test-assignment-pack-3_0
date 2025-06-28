@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Mock nuqs to avoid ESM issues
 jest.mock('nuqs', () => ({
   useQueryStates: jest.fn(),

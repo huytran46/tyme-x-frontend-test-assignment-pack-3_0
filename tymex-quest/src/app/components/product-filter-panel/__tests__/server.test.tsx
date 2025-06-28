@@ -1,3 +1,5 @@
+import React from 'react'
+
 // Mock nuqs to avoid ESM issues
 jest.mock('nuqs/server', () => ({
   createLoader: jest.fn(),
@@ -39,10 +41,11 @@ jest.mock('../client', () => ({
   ),
 }))
 
-import { render, screen } from '@testing-library/react'
 import { Suspense } from 'react'
 
 import { fetchAvailableCategories } from '../../../data'
+
+import { render, screen } from '@testing-library/react'
 
 const mockFetchAvailableCategories = fetchAvailableCategories as jest.MockedFunction<typeof fetchAvailableCategories>
 
