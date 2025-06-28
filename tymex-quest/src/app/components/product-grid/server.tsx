@@ -1,12 +1,15 @@
 const ProductCardSkeleton = () => (
-  <div className="bg-white rounded shadow p-3 flex flex-col">
+  <div className="bg-white rounded shadow p-3 flex flex-col relative">
+    <div className="flex justify-end absolute top-2 right-2">
+      <ProductTierBadge tier="--" />
+    </div>
     <div className="w-full aspect-square bg-gray-200 rounded mb-2 flex items-center justify-center">
       <span className="text-gray-400">Image</span>
     </div>
     <div className="flex-1">
-      <div className="font-semibold">Name</div>
-      <div className="text-xs text-gray-500">Tier</div>
-      <div className="text-sm mt-1">0.00 ETH</div>
+      <div className="font-semibold bg-gray-100 text-transparent animate-pulse">Name</div>
+      <div className="text-xs bg-gray-100 text-transparent animate-pulse">Tier</div>
+      <div className="text-sm mt-1 bg-gray-100 text-transparent animate-pulse">0.00 ETH</div>
     </div>
     <div className="flex justify-end mt-2">
       <button className="text-gray-400 hover:text-red-400">
@@ -43,7 +46,16 @@ const ProductLikeButton = () => (
 )
 
 const ProductCard = ({ children }: { children: React.ReactNode }) => (
-  <div className="bg-white rounded shadow p-3 flex flex-col">{children}</div>
+  <div className="bg-white rounded shadow p-3 flex flex-col relative">{children}</div>
+)
+
+const ProductTierBadge = ({ tier }: { tier: string }) => (
+  <span
+    style={{ fontSize: 10 }}
+    className="px-1 rounded-md text-neutral-foreground bg-neutral-100 border border-neutral-300"
+  >
+    {tier}
+  </span>
 )
 
 const ProductGridWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -73,4 +85,5 @@ export {
   ProductImage,
   ProductInfo,
   ProductLikeButton,
+  ProductTierBadge,
 }

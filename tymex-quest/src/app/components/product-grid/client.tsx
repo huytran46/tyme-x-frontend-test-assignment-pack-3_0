@@ -9,6 +9,7 @@ import {
   ProductImage,
   ProductInfo,
   ProductLikeButton,
+  ProductTierBadge,
 } from '@/app/components/product-grid/server'
 import { productSearchParams } from '@/app/data'
 import { useInfiniteProducts } from '@/app/hooks/use-infinite-products'
@@ -27,11 +28,16 @@ const ProductGrid = () => {
   }
 
   return products.map(product => (
-    <ProductCard key={product.id}>
-      <ProductImage />
-      <ProductInfo name={product.title} tier={product.tier} price={product.price} />
-      <ProductLikeButton />
-    </ProductCard>
+    <div key={product.id}>
+      <ProductCard>
+        <div className="flex justify-end absolute top-2 right-2">
+          <ProductTierBadge tier={product.tier} />
+        </div>
+        <ProductImage />
+        <ProductInfo name={product.title} tier={product.category} price={product.price} />
+        <ProductLikeButton />
+      </ProductCard>
+    </div>
   ))
 }
 
