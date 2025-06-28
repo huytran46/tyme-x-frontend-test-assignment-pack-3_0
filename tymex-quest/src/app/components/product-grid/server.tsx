@@ -1,5 +1,5 @@
 const ProductCardSkeleton = () => (
-  <div className="bg-white rounded shadow p-3 flex flex-col relative">
+  <div className="bg-white rounded shadow p-3 flex flex-col relative opacity-60">
     <div className="flex justify-end absolute top-2 right-2">
       <ProductTierBadge tier="--" />
     </div>
