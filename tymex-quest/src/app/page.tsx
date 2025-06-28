@@ -1,13 +1,12 @@
 import { Suspense } from 'react'
 import type { SearchParams } from 'nuqs/server'
 
+import { CategoryChips, CategoryChipsSkeleton, CategoryChipsWrapper } from '@/app/components/category-chips/server'
+import { ProductFilterPanel } from '@/app/components/product-filter-panel/server'
 import { ProductGrid } from '@/app/components/product-grid/client'
-import { Button } from '@/components/ui/button'
-
-import { CategoryChips, CategoryChipsSkeleton, CategoryChipsWrapper } from './components/category-chips/server'
-import { ProductFilterPanel } from './components/filters/product-filter-panel'
-import { ProductGridWrapper } from './components/product-grid/server'
-import { Aside, Footer, Header, Main } from './components/site-layout'
+import { ProductGridSkeleton, ProductGridWrapper } from '@/app/components/product-grid/server'
+import { ProductGridPagination } from '@/app/components/product-grid-pagination'
+import { Aside, Footer, Header, Main } from '@/app/components/site-layout'
 
 export default async function Page({}: { searchParams: Promise<SearchParams> }) {
   return (
@@ -29,14 +28,15 @@ export default async function Page({}: { searchParams: Promise<SearchParams> }) 
 
           {/* Product Grid */}
           <ProductGridWrapper>
-            <ProductGrid />
+            <Suspense fallback={<ProductGridSkeleton />}>
+              <ProductGrid />
+            </Suspense>
           </ProductGridWrapper>
 
-          <div className="flex justify-center mt-8">
-            <Button>View More</Button>
-          </div>
+          <ProductGridPagination />
         </section>
       </Main>
+
       <Footer />
     </div>
   )
