@@ -52,6 +52,22 @@ const PaginationEmptyState = () => (
   </Pagination>
 )
 
+function calculatePaginationPages(page: number, totalPages: number): (number | 'ellipsis')[] {
+  let pages: (number | 'ellipsis')[] = []
+
+  if (totalPages <= 5) {
+    pages = Array.from({ length: totalPages }, (_, i) => i + 1)
+  } else if (page <= 3) {
+    pages = [1, 2, 3, 4, 'ellipsis', totalPages]
+  } else if (page >= totalPages - 2) {
+    pages = [1, 'ellipsis', totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
+  } else {
+    pages = [1, 'ellipsis', page - 1, page, page + 1, 'ellipsis', totalPages]
+  }
+
+  return pages
+}
+
 const ProductGridPagination = () => {
   const [searchParams, setProductParams] = useQueryStates(productSearchParams)
   const { data, isLoading } = useInfiniteProducts(searchParams)
@@ -68,16 +84,7 @@ const ProductGridPagination = () => {
 
   const goToPage = (p: number) => setProductParams(prev => ({ ...prev, _page: p }))
 
-  let pages: (number | 'ellipsis')[] = []
-  if (totalPages <= 5) {
-    pages = Array.from({ length: totalPages }, (_, i) => i + 1)
-  } else if (page <= 3) {
-    pages = [1, 2, 3, 4, 'ellipsis', totalPages]
-  } else if (page >= totalPages - 2) {
-    pages = [1, 'ellipsis', totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
-  } else {
-    pages = [1, 'ellipsis', page - 1, page, page + 1, 'ellipsis', totalPages]
-  }
+  const pages = calculatePaginationPages(page, totalPages)
 
   return (
     <Pagination>
@@ -112,4 +119,4 @@ const ProductGridPagination = () => {
   )
 }
 
-export { ProductGridPagination }
+export { calculatePaginationPages, ProductGridPagination }

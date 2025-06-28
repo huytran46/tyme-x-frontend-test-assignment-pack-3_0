@@ -16,6 +16,7 @@ const customJestConfig = {
     '!src/**/index.ts',
     '!src/app/layout.tsx',
     '!src/app/providers.tsx',
+    '!src/components/ui/**',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
@@ -27,11 +28,8 @@ const customJestConfig = {
       statements: 40,
     },
   },
-  testMatch: [
-    '**/__tests__/**/*.(js|jsx|ts|tsx)',
-    '**/*.(test|spec).(js|jsx|ts|tsx)',
-  ],
+  testMatch: ['**/__tests__/**/*.(js|jsx|ts|tsx)', '**/*.(test|spec).(js|jsx|ts|tsx)'],
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(customJestConfig) 
+export default createJestConfig(customJestConfig)

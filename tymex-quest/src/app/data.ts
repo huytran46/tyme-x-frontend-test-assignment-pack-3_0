@@ -88,4 +88,4 @@ const productQueryKey = {
 
 export type { Product, ProductQueryParams }
 
-export { fetchAvailableCategories, loadProductSearchParams, productFetcher, productQueryKey, productSearchParams }
+export { buildQueryString, fetchAvailableCategories, loadProductSearchParams, productFetcher, productQueryKey, productSearchParams }
