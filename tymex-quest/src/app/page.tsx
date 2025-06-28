@@ -33,7 +33,9 @@ export default async function Page({}: { searchParams: Promise<SearchParams> }) 
             </Suspense>
           </ProductGridWrapper>
 
-          <ProductGridPagination />
+          <Suspense>
+            <ProductGridPagination />
+          </Suspense>
         </section>
       </Main>
 
